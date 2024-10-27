@@ -4,11 +4,17 @@ from .models import Rating, Restaurant
 class RatingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rating
-        fields = ['id', 'restaurant', 'user', 'rating', 'review']
+        fields = ['id', 'score', 'restaurant']
+
+    def create(self, validated_data):
+        validated_data['user'] = self.context['request'].user
+        return super().create(validated_data)
 
 class RestaurantSerializer(serializers.ModelSerializer):
     ratings = RatingSerializer(many=True, read_only=True)
 
     class Meta:
         model = Restaurant
-        fields = ['id', 'name', 'description', 'location', 'average_rating', 'ratings']
+        fields = ['id', 'name', 'location', 'ratings']
+
+        

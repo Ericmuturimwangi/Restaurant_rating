@@ -2,12 +2,13 @@ from django.shortcuts import render
 from ratings.models import Rating, Restaurant
 from ratings.serializers import RatingSerializer, RestaurantSerializer
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 
 class RestaurantViewSet(viewsets.ModelViewSet):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
+    permission_classes = [AllowAny] 
 
 
 class RatingViewSet(viewsets.ModelViewSet):

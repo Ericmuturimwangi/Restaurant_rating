@@ -7,6 +7,7 @@ class RatingSerializer(serializers.ModelSerializer):
         fields = ['id', 'score', 'restaurant']
 
     def create(self, validated_data):
+        # assign the authenticated user to the user field
         validated_data['user'] = self.context['request'].user
         return super().create(validated_data)
 
@@ -17,4 +18,3 @@ class RestaurantSerializer(serializers.ModelSerializer):
         model = Restaurant
         fields = ['id', 'name', 'location', 'ratings']
 
-        

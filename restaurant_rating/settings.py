@@ -40,6 +40,13 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
+    # rate limiting to prevent abuse for rating submissions.
+    'DEFAULT_THROTTLE_CLASSES':{
+        'rest_framework.throttling.UserRateThrottle',
+    },
+    'DEFAULT_THROTTLE_RATES':{
+        'user': '5/min',
+    }
 }
 
 MIDDLEWARE = [

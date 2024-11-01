@@ -1,5 +1,5 @@
 
-
+from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -40,12 +40,14 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
-    'DEFAULT_THROTTLE_CLASSES':{
-        'rest_framework.throttling.UserRateThrottle',
+    'DEFAULT_THROTTLE_CLASSES': [
+        UserRateThrottle,  # Notice no quotes around the class name
+        AnonRateThrottle,  # Notice no quotes around the class name
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'user': '1000/day',
+        'anon': '100/day',
     },
-    'DEFAULT_THROTTLE_RATES':{
-        'user': '5/min',
-    }
 }
 
 MIDDLEWARE = [

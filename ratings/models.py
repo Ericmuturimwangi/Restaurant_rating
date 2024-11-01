@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.conf import settings
 
+
     
 def validate_Score(value):
     if value < 1 or value > 5 :
@@ -33,7 +34,10 @@ class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     bio = models.TextField(blank=True, null=True)
     profile_picture = models.ImageField(upload_to="profile_pics/", blank=True, null=True)
-
+    favorite_cuisines = models.CharField(max_length=255, blank=True)  # Comma-separated list of cuisines
+    visited_restaurants = models.ManyToManyField('Restaurant', blank=True, related_name="visitors")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.user.username

@@ -41,8 +41,8 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_THROTTLE_CLASSES': [
-        UserRateThrottle,  # Notice no quotes around the class name
-        AnonRateThrottle,  # Notice no quotes around the class name
+        UserRateThrottle,  
+        AnonRateThrottle,  
     ],
     'DEFAULT_THROTTLE_RATES': {
         'user': '1000/day',

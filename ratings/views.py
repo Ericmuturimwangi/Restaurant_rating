@@ -18,7 +18,7 @@ class RestaurantViewSet(viewsets.ModelViewSet):
 class RatingViewSet(viewsets.ModelViewSet):
     queryset = Rating.objects.all()
     serializer_class = RatingSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
 
     def perform_create(self, serializer):
@@ -28,7 +28,7 @@ class RatingViewSet(viewsets.ModelViewSet):
 class UserProfileDetailView(generics.RetrieveUpdateAPIView):
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def get_object(self):
         try:
@@ -39,7 +39,7 @@ class UserProfileDetailView(generics.RetrieveUpdateAPIView):
 
 
 class TestAuthView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def get(self, request):
         return Response({"message":"Authenticated successfully!"})

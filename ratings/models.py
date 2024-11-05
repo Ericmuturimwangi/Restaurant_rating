@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.conf import settings
 
+import secrets
 
     
 def validate_Score(value):
@@ -41,4 +42,17 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
+    
+
+    
+class APIKEY(models.Model):
+    key = models.CharField(max_length=255, unique=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
+
+
+    @classmethod
+    def generate_api_key(cls):
+        return secrets.token_hex(32)
     
